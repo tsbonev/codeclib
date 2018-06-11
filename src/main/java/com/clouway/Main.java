@@ -5,9 +5,6 @@ import com.clouway.parser.XmlCodec;
 import com.clouway.parser.MessageCodec;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class Main {
 
@@ -15,25 +12,30 @@ public class Main {
 
         MessageCodec codec;
 
-        List<Person> list = new ArrayList<>();
+        PersonList list;
 
-        /*
         String type = args[1];
         String filepath = args[2];
         String action = args[3];
-        */
-
-        String type = "json";
-        String filepath = "message.json";
 
 
         if(type.equals("json")){
 
-            codec = new JsonCodec(Person.class);
+            codec = new JsonCodec(PersonList.class);
 
             File file = new File(filepath);
 
-            list = (List<Person>) codec.parseFile(file);
+            list = (PersonList)codec.parseFile(file);
+
+            if(action.equals("--printAverageStats"))
+
+            System.out.println("Users Count: " + list.personList.size());
+            System.out.println("Average Age: " +
+                    (int)(list.personList.stream()
+                            .mapToInt(p -> p.age)
+                            .average()
+                            .getAsDouble())
+            );
 
         }
 
