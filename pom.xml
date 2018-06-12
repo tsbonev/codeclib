@@ -40,11 +40,6 @@
     <repositories>
 
         <repository>
-            <id>central</id>
-            <url>file://.m2/repository/com/clouway/parser</url>
-        </repository>
-
-        <repository>
             <id>lib</id>
             <url>file://${project.build.directory}/lib</url>
         </repository>
