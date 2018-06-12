@@ -10,7 +10,8 @@ public class Main {
 
     public static void main(String[] args){
 
-        MessageCodec codec;
+        MessageCodec codec = null;
+        //default to json
 
         PersonList list;
 
@@ -20,23 +21,26 @@ public class Main {
 
 
         if(type.equals("json")){
-
             codec = new JsonCodec(PersonList.class);
+        }
 
-            File file = new File(filepath);
+        if (type.equals("xml")){
+            codec = new XmlCodec(PersonList.class);
+        }
 
-            list = (PersonList)codec.parseFile(file);
+        File file = new File(filepath);
 
-            if(action.equals("--printAverageStats"))
+        list = (PersonList) codec.parseFile(file);
 
+        if(action.equals("--printAverageStats")) {
             System.out.println("Users Count: " + list.personList.size());
+
             System.out.println("Average Age: " +
-                    (int)(list.personList.stream()
+                    (int) (list.personList.stream()
                             .mapToInt(p -> p.age)
                             .average()
                             .getAsDouble())
             );
-
         }
 
     }
